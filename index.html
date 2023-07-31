@@ -1,46 +1,302 @@
 <!DOCTYPE html>
-<!-- saved from url=(0022)https://nya.snupai.me/ -->
-<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-    <title>Meow~</title>
-    <style>
-        body {
-            background-color: #000000;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-        }
+<html>
+<head>
+  <title>Bobbys Webseite</title>
+  <link rel="icon" href="images/rlg.png">
+  <style>
+    /* Dein bestehender CSS-Stil */
+    body {
+      background-color: rgb(8, 7, 7);
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      position: relative;
+    }
 
-        h1 {
-            color: salmon;
-            text-align: center;
-            animation: hueShift 5s ease infinite;
-        }
+    /* Neuer CSS-Code für die Scrollleiste */
+    ::-webkit-scrollbar {
+      width: 6px; /* Dicke der Scrollleiste */
+      background-color: #f1f1f1; /* Hintergrundfarbe der Scrollleiste */
+    }
 
-        img {
-            margin-left: auto;
-            margin-right: auto;
-        }
+    ::-webkit-scrollbar-thumb {
+      background-color: gray; /* Farbe des Scrollleisten-Thumb */
+      border-radius: 3px; /* Abrundung des Scrollleisten-Thumb */
+    }
 
-        @keyframes hueShift {
-            0% {
-                color: salmon;
-            }
+    /* Optionale Stile, um den Thumb zu verstecken, wenn nicht gescrollt wird */
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #b5b5b5; /* Farbe des Scrollleisten-Thumb beim Hover */
+    }
 
-            50% {
-                color: #FFA3D7;
-            }
+    ::-webkit-scrollbar-thumb:vertical {
+      min-height: 20px; /* Mindesthöhe des Scrollleisten-Thumb */
+    }
 
-            100% {
-                color: salmon;
-            }
-        }
-    </style>
+    /* Der restliche vorhandene CSS-Code bleibt unverändert */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      margin: 10px;
+    }
+
+    .menu-icon {
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    .menu {
+      display: none;
+      flex-direction: column;
+      align-items: flex-end;
+      background-color: #333;
+      padding: 10px;
+      position: absolute;
+      top: 30px;
+      right: 10px;
+    }
+
+    .menu a {
+      color: white;
+      text-decoration: none;
+      padding: 5px 10px;
+    }
+
+    .menu a:hover {
+      background-color: #d6b600;
+      border-radius: 5px;
+    }
+
+    h1, h2, p {
+      margin: 10px 0;
+    }
+
+    img {
+      max-width: 500px; /* Ändere diesen Wert, um das Bild zu vergrößern */
+      margin: 10px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      margin-top: 20px;
+      margin-left: -100px; /* Hier wird der Text "Rocket League Germany" nach links verschoben */
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    button {
+      background-color: #ffc403;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 20px;
+      display: block;
+    }
+
+    .menu-active .menu {
+      display: flex;
+    }
+
+    .social-icons {
+      display: flex;
+      flex-direction: row; /* Ändere auf 'column' für eine vertikale Anordnung */
+      align-items: center;
+      margin-top: 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      margin: 10px;
+    }
+
+    .follower-count {
+      font-size: 18px;
+      margin-top: 20px;
+      position: absolute;
+      bottom: 0;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .animate-follower {
+      animation: animateFollower 2s steps(50, end);
+    }
+
+    @keyframes animateFollower {
+      from {
+        content: 'Follower: 1';
+      }
+      to {
+        content: 'Follower: ' attr(data-followers);
+      }
+    }
+
+    .team-members {
+      display: flex;
+      justify-content: center;
+    }
+
+    .team-member {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px;
+      padding: 10px;
+      border: 1px solid white;
+      border-radius: 5px;
+      width: 200px;
+    }
+
+    .team-member img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    /* Stil für das Kästchen */
+    .info-box {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid white;
+      border-radius: 5px;
+      padding: 10px;
+      margin-top: 10px;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    /* Stil für den Button */
+    .partner-button {
+      margin-top: 10px;
+    }
+  </style>
 </head>
-
 <body>
-    <h1>Meow~</h1>
-    <img src="./files/cat-cat-love.gif">
+  <div class="header">
+    <!-- Icon für die Startseite -->
+    <a href="#" onclick="showPage('startseite')">
+      <img class="logo-icon" src="images/rlg.png">
+    </a>
 
-    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/0qN8AEhPVjR6eq1o5lerx0?utm_source=generator&theme=0" width="600" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <div class="menu-icon" onclick="toggleMenu()">
+      <div style="width: 40px; height: 3px; background-color: white;"></div>
+      <div style="width: 30px; height: 3px; background-color: white; margin: 5px 0;"></div>
+      <div style="width: 20px; height: 3px; background-color: white;"></div>
+    </div>
 
-</body></html>
+    <div class="menu">
+      <a href="#" onclick="showPage('startseite')">Startseite</a>
+      <a href="#" onclick="showPage('unser-team')">Unser Team</a>
+      <a href="#" onclick="showPage('partners')">Partners</a>
+      <a href="#" onclick="showPage('impressum')">Impressum</a>
+      <a href="#" onclick="showPage('datenschutz')">Datenschutz</a>
+    </div>
+  </div>
+
+  <div id="startseite">
+    <img src="images/rlg.png" alt="Header Image">
+    <h1>Rocket League Germany</h1>
+    <button onclick="window.location.href='https://discord.gg/y2mwmfwD'">Jetzt beitreten</button>
+
+    <div class="social-icons">
+      <!-- ... Social Media Icons hier einfügen ... -->
+    </div>
+  </div>
+
+  <div id="unser-team" style="display: none;">
+    <h2>Unser Team</h2>
+    <div class="team-members">
+      <div class="team-member">
+        <img src="teamimages/samyspfp.jpg" alt="Teammitglied 1">
+        <h3>[1] Samy</h3>
+        <p>Beschäftigt sich im Bereich Support. 🌠</p>
+      </div>
+      <div class="team-member">
+        <img src="teamimages/bobby.gif" alt="Teammitglied 2">
+        <h3>[2] Bobby</h3>
+        <p>Tätig im Bereich Entwicklungs Application Bots etc. 🤖</p>
+      </div>
+      <!-- Weitere Teammitglieder hier hinzufügen -->
+    </div>
+  </div>
+
+  <div id="impressum" style="display: none;">
+    <h2>Impressum</h2>
+    <p>Hier ist das Impressum unserer Webseite.</p>
+  </div>
+
+  <div id="partners" style="display: none;">
+    <h2>Partners</h2>
+    <p>Hier findest du unsere Partner</p>
+    <div class="team-members">
+      <div class="team-member info-box">
+        <img src="partners/moonfamily.png" alt="Partner 1">
+        <h3>Moon Family 🌙</h3>
+        <button class="partner-button" onclick="window.location.href='https://discord.gg/zzmweS7fPR'">Jetzt beitreten</button>
+      </div>
+      <div class="team-member info-box">
+        <img src="partners/teammid.gif" alt="Partner 2">
+        <h3>Team Mind</h3>
+        <button class="partner-button" onclick="window.location.href='https://discord.gg/team-mind'">Jetzt beitreten</button>
+      </div>
+      <div class="team-member info-box">
+        <img src="partners/inferno.gif" alt="Partner 3">
+        <h3>Team Inferno</h3>
+        <button class="partner-button" onclick="window.location.href='https://discord.gg/team-mind'">Jetzt beitreten</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="datenschutz" style="display: none;">
+    <h2>Datenschutz</h2>
+    <p>Hier ist unsere Datenschutzerklärung.</p>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.querySelector(".menu");
+      menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    function showPage(page) {
+      const pages = ['startseite', 'unser-team', 'partners', 'impressum', 'datenschutz'];
+      for (const p of pages) {
+        const content = document.getElementById(p);
+        content.style.display = (p === page) ? 'block' : 'none';
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      // Hier kannst du zusätzlichen JavaScript-Code einfügen, der nach dem Laden der Seite ausgeführt wird.
+    });
+  </script>
+</body>
+</html>
