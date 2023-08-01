@@ -1,349 +1,369 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Rocket League Germany</title>
-  <link rel="icon" href="images/rlg.png">
-  <style>
-    /* Dein bestehender CSS-Stil */
-    body {
-      background-color: rgb(8, 7, 7);
-      color: white;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      position: relative;
-    }
+<meta charset="UTF-8">
+<title>Rocket League Germany</title>
+<link rel="icon" href="images/rlg.png">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+	
+	$('.count').each(function () {
+    $(this).prop('Counter',0).animate({
+        Counter: $(this).text()
+    }, {
+        duration: 4000,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+});
+	</script>
+<style>
+/* Dein bestehender CSS-Stil */
+body {
+    background-color: rgb(8, 7, 7);
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    position: relative;
+}
 
     /* Neuer CSS-Code für die Scrollleiste */
     ::-webkit-scrollbar {
-      width: 6px; /* Dicke der Scrollleiste */
-      background-color: #f1f1f1; /* Hintergrundfarbe der Scrollleiste */
-    }
+width: 6px; /* Dicke der Scrollleiste */
+background-color: #f1f1f1; /* Hintergrundfarbe der Scrollleiste */
+}
 
     ::-webkit-scrollbar-thumb {
-      background-color: gray; /* Farbe des Scrollleisten-Thumb */
-      border-radius: 3px; /* Abrundung des Scrollleisten-Thumb */
-    }
+background-color: gray; /* Farbe des Scrollleisten-Thumb */
+border-radius: 3px; /* Abrundung des Scrollleisten-Thumb */
+}
 
     /* Optionale Stile, um den Thumb zu verstecken, wenn nicht gescrollt wird */
     ::-webkit-scrollbar-thumb:hover {
-      background-color: #b5b5b5; /* Farbe des Scrollleisten-Thumb beim Hover */
-    }
+background-color: #b5b5b5; /* Farbe des Scrollleisten-Thumb beim Hover */
+}
 
     ::-webkit-scrollbar-thumb:vertical {
-      min-height: 20px; /* Mindesthöhe des Scrollleisten-Thumb */
-    }
-
-    /* Der restliche vorhandene CSS-Code bleibt unverändert */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      z-index: 1;
-    }
-
-    .logo-icon {
-      width: 40px;
-      height: 40px;
-      margin: 10px;
-    }
-
-    .menu-icon {
-      cursor: pointer;
-      margin: 10px;
-    }
-
-    .menu {
-      display: none;
-      flex-direction: column;
-      align-items: flex-end;
-      background-color: #333;
-      padding: 10px;
-      position: absolute;
-      top: 30px;
-      right: 10px;
-    }
-
-    .menu a {
-      color: white;
-      text-decoration: none;
-      padding: 5px 10px;
-    }
-
-    .menu a:hover {
-      background-color: #d6b600;
-      border-radius: 5px;
-    }
-
-    h1, h2, p {
-      margin: 10px 0;
-    }
-
-    img {
-      max-width: 500px;
-      margin: 10px 0;
-      position: relative;
-      z-index: 1;
-    }
-
-    h1 {
-      margin-left: -100px;
-      position: relative;
-      z-index: 2;
-      text-align: center;
-    }
-
-    button {
-      background-color: #ffc403;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 5px;
-      margin-top: 20px;
-      display: block;
-    }
-
-    .menu-active .menu {
-      display: flex;
-    }
-
-    .social-icons {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      margin-top: 30px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .social-icon {
-      width: 40px;
-      height: 40px;
-      margin: 10px;
-    }
-
-    .follower-count {
-      font-size: 18px;
-      margin-top: 20px;
-      position: absolute;
-      bottom: 0;
-      opacity: 0;
-      animation: fadeIn 1s forwards;
-    }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
-    }
-
-    .animate-follower {
-      animation: animateFollower 2s steps(50, end);
-    }
-
-    @keyframes animateFollower {
-      from {
-        content: '+ 0';
-      }
-      to {
-        content: '+ ' attr(data-followers);
-      }
-    }
-
-    .team-members {
-      display: flex;
-      justify-content: center;
-    }
-
-    .team-member {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 20px;
-      padding: 10px;
-      border: 1px solid white;
-      border-radius: 5px;
-      width: 200px;
-    }
-
-    .team-member img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      margin-bottom: 10px;
-    }
-
-    /* Stil für das Kästchen */
-    .info-box {
-      background-color: rgba(255, 255, 255, 0.1);
-      border: 1px solid white;
-      border-radius: 5px;
-      padding: 10px;
-      margin-top: 10px;
-      max-width: 400px;
-      text-align: center;
-    }
-
-    /* Stil für den Button */
-    .partner-button {
-      margin-top: 10px;
-    }
-    
-    /* Neuer Stil für das Discord-Widget */
-    #discord-widget {
-      display: none;
-      margin-top: -30px;
-      right: 30px;
-      position: fixed;
-      bottom: 0;
-    }
+min-height: 20px; /* Mindesthöhe des Scrollleisten-Thumb */
+}
+/* Der restliche vorhandene CSS-Code bleibt unverändert */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+}
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+}
+.menu-icon {
+    cursor: pointer;
+    margin: 10px;
+}
+.menu {
+    display: none;
+    flex-direction: column;
+    align-items: flex-end;
+    background-color: #333;
+    padding: 10px;
+    position: absolute;
+    top: 30px;
+    right: 10px;
+}
+.menu a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+.menu a:hover {
+    background-color: #d6b600;
+    border-radius: 5px;
+}
+h1, h2, p {
+    margin: 10px 0;
+}
+img {
+    max-width: 500px;
+    margin-top: 10px;
+    margin-right: 0;
+    margin-left: 0;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+}
+h1 {
+    margin-left: 0px;
+    position: relative;
+    z-index: 0;
+    text-align: center;
+}
+button {
+    background-color: #ffc403;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+    display: block;
+}
+.menu-active .menu {
+    display: flex;
+}
+.social-icons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 30px;
+    position: relative;
+    z-index: 2;
+}
+.social-icon {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+}
+.follower-count {
+    font-size: 18px;
+    margin-top: 20px;
+    position: absolute;
+    bottom: 0;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+}
+@keyframes fadeIn {
+to {
+opacity: 1;
+}
+}
+.animate-follower {
+    animation: animateFollower 2s steps(50, end);
+}
+@keyframes animateFollower {
+from {
+content: '+ 0';
+}
+to {
+content: '+ ' attr(data-followers);
+}
+}
+.team-members {
+    display: flex;
+    justify-content: center;
+}
+.team-member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 200px;
+}
+.team-member img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+/* Stil für das Kästchen */
+.info-box {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+    max-width: 400px;
+    text-align: center;
+}
+/* Stil für den Button */
+.partner-button {
+    margin-top: 10px;
+}
+/* Neuer Stil für das Discord-Widget */
+#discord-widget {
+    display: none;
+    margin-top: -30px;
+    right: 30px;
+    position: fixed;
+    bottom: 0;
+}
     
     /* Neue Animationen */
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .animated {
-      animation-fill-mode: both;
-    }
-
-    .animated-up {
-      animation: fadeInUp 1s ease;
-    }
-
-    .show-discord-widget {
-      display: block !important;
-    }
-
-  </style>
+from {
+opacity: 0;
+transform: translateY(30px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+.animated {
+    animation-fill-mode: both;
+}
+.animated-up {
+    animation: fadeInUp 1s ease;
+}
+.show-discord-widget {
+    display: block !important;
+}
+	.server-description { 
+    width: 400px; 
+    word-wrap: break-word;
+  }
+</style>
 </head>
 <body>
-  <div class="header" onclick="hideMenu()">
-    <!-- Icon für die Startseite -->
-    <a href="#" onclick="showPage('startseite')">
-      <img class="logo-icon" src="images/rlg.png">
-    </a>
-
-    <div class="menu-icon" onclick="toggleMenu(event)">
-      <div style="width: 40px; height: 3px; background-color: white;"></div>
-      <div style="width: 30px; height: 3px; background-color: white; margin: 5px 0;"></div>
-      <div style="width: 20px; height: 3px; background-color: white;"></div>
-    </div>
-
-    <div class="menu">
-      <a href="#" onclick="showPage('startseite')">Startseite</a>
-      <a href="#" onclick="showPage('wersindwir')">Wer sind Wir?</a>
-      <a href="#" onclick="showPage('unser-team')">Unser Team</a>
-      <a href="#" onclick="showPage('partners')">Partners</a>
-      <a href="#" onclick="showPage('impressum')">Impressum</a>
-      <a href="#" onclick="showPage('datenschutz')">Datenschutz</a>
-    </div>
+<div class="header" onclick="hideMenu()"> 
+  <!-- Icon für die Startseite --> 
+  <a href="#" onclick="showPage('startseite')"> <img class="logo-icon" src="images/rlg.png"> </a>
+  <div class="menu-icon" onclick="toggleMenu(event)">
+    <div style="width: 40px; height: 3px; background-color: white;"></div>
+    <div style="width: 30px; height: 3px; background-color: white; margin: 5px 0;"></div>
+    <div style="width: 20px; height: 3px; background-color: white;"></div>
   </div>
-
-  <div id="startseite" class="animated animated-up">
-    <img src="images/rlg.png" alt="Header Image">
-    <h1>Rocket League Germany</h1>
-    <button onclick="window.location.href='https://discord.gg/y2mwmfwD'">Jetzt beitreten</button>
+  <div class="menu"> <a href="#" onclick="showPage('startseite')">Startseite</a> <a href="#" onclick="showPage('wersindwir')">Wer sind Wir?</a> <a href="#" onclick="showPage('unser-team')">Unser Team</a> <a href="#" onclick="showPage('partners')">Partners</a> <a href="#" onclick="showPage('impressum')">Impressum</a> <a href="#" onclick="showPage('datenschutz')">Datenschutz</a> </div>
+</div>
+<div style="margin-top: 65%" id="startseite" class="animated animated-up" align="center"> <img src="images/rlg.png" alt="Header Image">
+  <h1 align="center">Rocket League Germany</h1>
+  <button onclick="window.location.href='https://discord.gg/y2mwmfwD'">Jetzt beitreten</button>
+  <div  style="margin-bottom: 50%; margin-top: 150%;">
+	  <h1 style="margin-bottom: -15%; margin-left: -370%">Unser Discord</h1>
+    <iframe style="margin-left: 125%;" src="https://discord.com/widget?id=466641131992514570&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+	  <div style="margin-top: -100%; margin-bottom: 100%; margin-left: -250%" class="server-description"><a>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</a></div>
   </div>
-
-
-  <div id="unser-team" style="display: none;" class="animated animated-up">
-    <h2>Unser Team</h2>
-    <div class="team-members">
-      <div class="team-member">
-        <img src="teamimages/samyspfp.jpg" alt="Teammitglied 1">
-        <h3>[1] Samy</h3>
-        <p>Beschäftigt sich im Bereich Support. 🌠</p>
-      </div>
-      <div class="team-member">
-        <img src="teamimages/bobby.gif" alt="Teammitglied 2">
-        <h3>[2] Bobby</h3>
-        <p>Tätig im Bereich Entwicklungs Application Bots etc. 🤖</p>
-      </div>
-      <div class="team-member">
-        <img src="teamimages/toasti.gif" alt="Teammitglied 3">
-        <h3>[3] Toasti</h3>
-        <p>Server Eigentümer. 👑</p>
-      </div>
-      <div class="team-member">
-        <img src="teamimages/daniel.png" alt="Teammitglied 4">
-        <h3>[4] Sxpreme</h3>
-        <p>Tätig im Bereich Bewerbungen. ✍</p>
-      </div>
-      <div class="team-member">
-        <img src="teamimages/hexy.gif" alt="Teammitglied 5">
-        <h3>[5] Hexy</h3>
-        <p>Beschäftigt sich im Bereich Support. 🌠</p>
-      </div>
-      <div class="team-member">
-        <img src="teamimages/louis.gif" alt="Teammitglied 6">
-        <h3>[6] Louis</h3>
-        <p>Tätig im Bereich Server-Leitung. 🚀</p>
-      </div>
+</div>
+<div id="unser-team" style="display: none;" class="animated animated-up">
+  <h2>Unser Team</h2>
+  <div class="team-members">
+    <div class="team-member"> <img src="teamimages/samyspfp.jpg" alt="Teammitglied 1">
+      <h3>[1] Samy</h3>
+      <p>Beschäftigt sich im Bereich Support. 🌠</p>
+    </div>
+    <div class="team-member"> <img src="teamimages/bobby.gif" alt="Teammitglied 2">
+      <h3>[2] Bobby</h3>
+      <p>Tätig im Bereich Entwicklungs Application Bots etc. 🤖</p>
+    </div>
+    <div class="team-member"> <img src="teamimages/toasti.gif" alt="Teammitglied 3">
+      <h3>[3] Toasti</h3>
+      <p>Server Eigentümer. 👑</p>
+    </div>
+    <div class="team-member"> <img src="teamimages/daniel.png" alt="Teammitglied 4">
+      <h3>[4] Sxpreme</h3>
+      <p>Tätig im Bereich Bewerbungen. ✍</p>
+    </div>
+    <div class="team-member"> <img src="teamimages/hexy.gif" alt="Teammitglied 5">
+      <h3>[5] Hexy</h3>
+      <p>Beschäftigt sich im Bereich Support. 🌠</p>
+    </div>
+    <div class="team-member"> <img src="teamimages/louis.gif" alt="Teammitglied 6">
+      <h3>[6] Louis</h3>
+      <p>Tätig im Bereich Server-Leitung. 🚀</p>
     </div>
   </div>
-
-
-  <div id="partners" style="display: none;" class="animated animated-up">
-    <h2>Partners</h2>
-    <p>Hier findest du unsere Partner</p>
-    <div class="team-members">
-      <div class="team-member info-box">
-        <img src="partners/moonfamily.png" alt="Partner 1">
-        <h3>Moon Family 🌙</h3>
-        <button class="partner-button" onclick="window.location.href='https://discord.gg/zzmweS7fPR'">Jetzt beitreten</button>
-        <div class="follower-count" data-followers="4708">+ 0</div>
-      </div>
-      <div class="team-member info-box">
-        <img src="partners/teammid.gif" alt="Partner 2">
-        <h3>Team Mind</h3>
-        <button class="partner-button" onclick="window.location.href='https://discord.gg/team-mind'">Jetzt beitreten</button>
-        <div class="follower-count" data-followers="12909">+ 0</div>
-      </div>
-      <div class="team-member info-box">
-        <img src="partners/inferno.gif" alt="Partner 3">
-        <h3>Team Inferno</h3>
-        <button class="partner-button" onclick="window.location.href='https://discord.gg/team-inferno-1046497196050231366'">Jetzt beitreten</button>
-        <div class="follower-count" data-followers="1094">+ 0</div>
-      </div>
+</div>
+<div id="partners" style="display: none;" class="animated animated-up">
+  <h2>Partners</h2>
+  <p>Hier findest du unsere Partner</p>
+  <div class="team-members">
+    <div class="team-member info-box"> <img src="partners/moonfamily.png" alt="Partner 1">
+      <h3 style="margin-bottom: 0">Moon Family 🌙</h3>
+	  <div id="result-Moon-Family" style="font-size: small; font-style: italic;" class="count"></div>
+      <button class="partner-button" onclick="window.location.href='https://discord.gg/zzmweS7fPR'">Jetzt beitreten</button>
+      <!--<div class="follower-count" data-followers="4708">+ 0</div>-->
+	  <script>
+        $(document).ready(function() {
+          $.ajax({
+            type: "GET",
+            url: "https://discord.com/api/v9/invites/zzmweS7fPR?with_counts=true&with_expiration=true",
+            success: function(data) {
+              var json = JSON.stringify(data); // convert to JSON
+              var obj = JSON.parse(json); // parse the JSON
+              // Get the value of the "approximate_member_count" property
+              var number = obj.approximate_member_count;
+              // Display the value in the HTML element
+              $("#result-Moon-Family").html(number);
+            }
+          });
+        });
+      </script>
+    </div>
+    <div class="team-member info-box"> <img src="partners/teammid.gif" alt="Partner 2">
+      <h3 style="margin-bottom: 0">Team Mind</h3>
+      <div id="result-Team-Mind" style="font-size: small; font-style: italic;"></div>
+      <button class="partner-button" onclick="window.location.href='https://discord.gg/team-mind'">Jetzt beitreten</button>
+      <!--<div class="follower-count" data-followers="12909">+ 0</div>-->
+      <script>
+        $(document).ready(function() {
+          $.ajax({
+            type: "GET",
+            url: "https://discord.com/api/v9/invites/team-mind?with_counts=true&with_expiration=true",
+            success: function(data) {
+              var json = JSON.stringify(data); // convert to JSON
+              var obj = JSON.parse(json); // parse the JSON
+              // Get the value of the "approximate_member_count" property
+              var number = obj.approximate_member_count;
+              // Display the value in the HTML element
+              $("#result-Team-Mind").html(number);
+            }
+          });
+        });
+      </script> 
+    </div>
+    <div class="team-member info-box"> <img src="partners/inferno.gif" alt="Partner 3">
+      <h3 style="margin-bottom: 0">Team Inferno</h3>
+	  <div id="result-Team-Inferno" style="font-size: small; font-style: italic;"></div>
+      <button class="partner-button" onclick="window.location.href='https://discord.gg/team-inferno-1046497196050231366'">Jetzt beitreten</button>
+      <!--<div class="follower-count" data-followers="1094">+ 0</div>-->
+      <script>
+        $(document).ready(function() {
+          $.ajax({
+            type: "GET",
+            url: "https://discord.com/api/v9/invites/team-inferno-1046497196050231366?with_counts=true&with_expiration=true",
+            success: function(data) {
+              var json = JSON.stringify(data); // convert to JSON
+              var obj = JSON.parse(json); // parse the JSON
+              // Get the value of the "approximate_member_count" property
+              var number = obj.approximate_member_count;
+              // Display the value in the HTML element
+              $("#result-Team-Inferno").html(number);
+            }
+          });
+        });
+      </script>
     </div>
   </div>
-
-  <div id="impressum" style="display: none;" class="animated animated-up">
-    <h2>Impressum</h2>
-    <p>Hier ist das Impressum unserer Webseite.</p>
-  </div>
-
-  <div id="datenschutz" style="display: none;" class="animated animated-up">
-    <h2>Datenschutz</h2>
-    <p>Hier ist unsere Datenschutzerklärung.</p>
-  </div>
-
-  <div id="wersindwir" style="display: none;" class="animated animated-up">
-    <h2>Wer sind Wir?</h2>
-    <p>Hier sind paar Informationen über uns.</p>
-  </div>
-
-
-  <script>
+</div>
+<div id="impressum" style="display: none;" class="animated animated-up">
+  <h2>Impressum</h2>
+  <p>Hier ist das Impressum unserer Webseite.</p>
+</div>
+<div id="datenschutz" style="display: none;" class="animated animated-up">
+  <h2>Datenschutz</h2>
+  <p>Hier ist unsere Datenschutzerklärung.</p>
+</div>
+<div id="wersindwir" style="display: none;" class="animated animated-up">
+  <h2>Wer sind Wir?</h2>
+  <p>Hier sind paar Informationen über uns.</p>
+</div>
+<script>
     function toggleMenu(event) {
       const menu = document.querySelector(".menu");
       menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
