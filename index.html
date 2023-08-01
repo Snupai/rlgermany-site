@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="de">
+<html>
 <head>
-  <title>RLGermany</title>
+  <title>Rocket League Germany</title>
   <link rel="icon" href="images/rlg.png">
-  <meta charset="utf-8">
   <style>
     /* Dein bestehender CSS-Stil */
     body {
@@ -43,10 +42,12 @@
     .header {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       width: 100%;
       position: absolute;
       top: 10px;
       right: 10px;
+      z-index: 1;
     }
 
     .logo-icon {
@@ -87,15 +88,14 @@
     }
 
     img {
-      max-width: 500px; /* Ändere diesen Wert, um das Bild zu vergrößern */
+      max-width: 500px;
       margin: 10px 0;
       position: relative;
       z-index: 1;
     }
 
     h1 {
-      margin-top: 20px;
-      margin-left: -100px; /* Hier wird der Text "Rocket League Germany" nach links verschoben */
+      margin-left: -100px;
       position: relative;
       z-index: 2;
       text-align: center;
@@ -119,7 +119,7 @@
 
     .social-icons {
       display: flex;
-      flex-direction: row; /* Ändere auf 'column' für eine vertikale Anordnung */
+      flex-direction: row;
       align-items: center;
       margin-top: 30px;
       position: relative;
@@ -153,10 +153,10 @@
 
     @keyframes animateFollower {
       from {
-        content: 'Follower: 1';
+        content: '+ 0';
       }
       to {
-        content: 'Follower: ' attr(data-followers);
+        content: '+ ' attr(data-followers);
       }
     }
 
@@ -198,16 +198,50 @@
     .partner-button {
       margin-top: 10px;
     }
+    
+    /* Neuer Stil für das Discord-Widget */
+    #discord-widget {
+      display: none;
+      margin-top: -30px;
+      right: 30px;
+      position: fixed;
+      bottom: 0;
+    }
+    
+    /* Neue Animationen */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animated {
+      animation-fill-mode: both;
+    }
+
+    .animated-up {
+      animation: fadeInUp 1s ease;
+    }
+
+    .show-discord-widget {
+      display: block !important;
+    }
+
   </style>
 </head>
 <body>
-  <div class="header">
+  <div class="header" onclick="hideMenu()">
     <!-- Icon für die Startseite -->
     <a href="#" onclick="showPage('startseite')">
       <img class="logo-icon" src="images/rlg.png">
     </a>
 
-    <div class="menu-icon" onclick="toggleMenu()">
+    <div class="menu-icon" onclick="toggleMenu(event)">
       <div style="width: 40px; height: 3px; background-color: white;"></div>
       <div style="width: 30px; height: 3px; background-color: white; margin: 5px 0;"></div>
       <div style="width: 20px; height: 3px; background-color: white;"></div>
@@ -215,6 +249,7 @@
 
     <div class="menu">
       <a href="#" onclick="showPage('startseite')">Startseite</a>
+      <a href="#" onclick="showPage('wersindwir')">Wer sind Wir?</a>
       <a href="#" onclick="showPage('unser-team')">Unser Team</a>
       <a href="#" onclick="showPage('partners')">Partners</a>
       <a href="#" onclick="showPage('impressum')">Impressum</a>
@@ -222,17 +257,14 @@
     </div>
   </div>
 
-  <div id="startseite">
+  <div id="startseite" class="animated animated-up">
     <img src="images/rlg.png" alt="Header Image">
     <h1>Rocket League Germany</h1>
     <button onclick="window.location.href='https://discord.gg/y2mwmfwD'">Jetzt beitreten</button>
-
-    <div class="social-icons">
-      <!-- ... Social Media Icons hier einfügen ... -->
-    </div>
   </div>
 
-  <div id="unser-team" style="display: none;">
+
+  <div id="unser-team" style="display: none;" class="animated animated-up">
     <h2>Unser Team</h2>
     <div class="team-members">
       <div class="team-member">
@@ -245,16 +277,31 @@
         <h3>[2] Bobby</h3>
         <p>Tätig im Bereich Entwicklungs Application Bots etc. 🤖</p>
       </div>
-      <!-- Weitere Teammitglieder hier hinzufügen -->
+      <div class="team-member">
+        <img src="teamimages/toasti.gif" alt="Teammitglied 3">
+        <h3>[3] Toasti</h3>
+        <p>Server Eigentümer. 👑</p>
+      </div>
+      <div class="team-member">
+        <img src="teamimages/daniel.png" alt="Teammitglied 4">
+        <h3>[4] Sxpreme</h3>
+        <p>Tätig im Bereich Bewerbungen. ✍</p>
+      </div>
+      <div class="team-member">
+        <img src="teamimages/hexy.gif" alt="Teammitglied 5">
+        <h3>[5] Hexy</h3>
+        <p>Beschäftigt sich im Bereich Support. 🌠</p>
+      </div>
+      <div class="team-member">
+        <img src="teamimages/louis.gif" alt="Teammitglied 6">
+        <h3>[6] Louis</h3>
+        <p>Tätig im Bereich Server-Leitung. 🚀</p>
+      </div>
     </div>
   </div>
 
-  <div id="impressum" style="display: none;">
-    <h2>Impressum</h2>
-    <p>Hier ist das Impressum unserer Webseite.</p>
-  </div>
 
-  <div id="partners" style="display: none;">
+  <div id="partners" style="display: none;" class="animated animated-up">
     <h2>Partners</h2>
     <p>Hier findest du unsere Partner</p>
     <div class="team-members">
@@ -262,41 +309,86 @@
         <img src="partners/moonfamily.png" alt="Partner 1">
         <h3>Moon Family 🌙</h3>
         <button class="partner-button" onclick="window.location.href='https://discord.gg/zzmweS7fPR'">Jetzt beitreten</button>
+        <div class="follower-count" data-followers="4708">+ 0</div>
       </div>
       <div class="team-member info-box">
         <img src="partners/teammid.gif" alt="Partner 2">
         <h3>Team Mind</h3>
         <button class="partner-button" onclick="window.location.href='https://discord.gg/team-mind'">Jetzt beitreten</button>
+        <div class="follower-count" data-followers="12909">+ 0</div>
       </div>
       <div class="team-member info-box">
         <img src="partners/inferno.gif" alt="Partner 3">
         <h3>Team Inferno</h3>
-        <button class="partner-button" onclick="window.location.href='https://discord.gg/team-mind'">Jetzt beitreten</button>
+        <button class="partner-button" onclick="window.location.href='https://discord.gg/team-inferno-1046497196050231366'">Jetzt beitreten</button>
+        <div class="follower-count" data-followers="1094">+ 0</div>
       </div>
     </div>
   </div>
 
-  <div id="datenschutz" style="display: none;">
+  <div id="impressum" style="display: none;" class="animated animated-up">
+    <h2>Impressum</h2>
+    <p>Hier ist das Impressum unserer Webseite.</p>
+  </div>
+
+  <div id="datenschutz" style="display: none;" class="animated animated-up">
     <h2>Datenschutz</h2>
     <p>Hier ist unsere Datenschutzerklärung.</p>
   </div>
 
+  <div id="wersindwir" style="display: none;" class="animated animated-up">
+    <h2>Wer sind Wir?</h2>
+    <p>Hier sind paar Informationen über uns.</p>
+  </div>
+
+
   <script>
-    function toggleMenu() {
+    function toggleMenu(event) {
       const menu = document.querySelector(".menu");
       menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+      event.stopPropagation(); // Verhindert das Auslösen von "hideMenu()" beim Klick auf das Menüsymbol.
     }
 
     function showPage(page) {
-      const pages = ['startseite', 'unser-team', 'partners', 'impressum', 'datenschutz'];
+      const pages = ['startseite', 'wersindwir', 'unser-team', 'partners', 'impressum', 'datenschutz'];
       for (const p of pages) {
         const content = document.getElementById(p);
         content.style.display = (p === page) ? 'block' : 'none';
       }
     }
 
+    function hideMenu() {
+      const menu = document.querySelector(".menu");
+      menu.style.display = 'none';
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
-      // Hier kannst du zusätzlichen JavaScript-Code einfügen, der nach dem Laden der Seite ausgeführt wird.
+      const discordWidget = document.getElementById("discord-widget");
+      const discordWidgetHeight = discordWidget.offsetHeight;
+      let scrolled = false;
+
+      function handleScroll() {
+        if (!scrolled && window.scrollY > discordWidgetHeight) {
+          scrolled = true;
+          discordWidget.classList.add("show-discord-widget");
+          document.removeEventListener("scroll", handleScroll);
+        }
+      }
+
+      document.addEventListener("scroll", handleScroll);
+      
+      // Direkte Zähler-Anzeige
+      const followerCounts = document.querySelectorAll(".follower-count");
+      followerCounts.forEach((counter) => {
+        const targetValue = parseInt(counter.getAttribute("data-followers"));
+        counter.textContent = `+ ${targetValue}`;
+      });
+
+      // Das Widget auf der Startseite anzeigen
+      const currentPage = window.location.hash.substring(1);
+      if (currentPage === "startseite") {
+        discordWidget.classList.add("show-discord-widget");
+      }
     });
   </script>
 </body>
